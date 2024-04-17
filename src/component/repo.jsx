@@ -1,127 +1,142 @@
 import React, { useEffect, useState } from "react";
-        
-import { Paginator } from 'primereact/paginator';
+
+import { Paginator } from "primereact/paginator";
 import { Link } from "react-router-dom";
 
-        
-
 const GitHubRepo = () => {
-    const [repositories, setRepositories] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [filteredRepositories, setFilteredRepositories] = useState([]);
-    const [first, setFirst] = useState(0);
-    const [rows, setRows] = useState(5)
+  const [repositories, setRepositories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredRepositories, setFilteredRepositories] = useState([]);
+  const [first, setFirst] = useState(0);
+  const [rows, setRows] = useState(5);
 
-    useEffect(() => {
-        const myRepo = async () => {
-            try {
-                const response = await fetch(`https://api.github.com/users/shannychi/repos`, {
-                    method: "GET",
-                    headers: {
-                   Authorization: import.meta.env.VITE_TOKEN  
-                    }
-                });
-                if(!response.ok) {
-                    throw new Error('Failed to fetch repositories');
-                }
+  useEffect(() => {
+    const myRepo = async () => {
+      try {
+        const response = await fetch(
+          `https://api.github.com/users/shannychi/repos`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: import.meta.env.VITE_TOKEN,
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch repositories");
+        }
 
-                const data = await response.json();
-                setRepositories(data);
-                setLoading(false);
+        const data = await response.json();
+        setRepositories(data);
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
+    };
+    myRepo();
+  }, []);
 
-            }catch(error) {
-                console.error(error);
-                setLoading(false);
-            }
-        };
-        myRepo();
-    }, [])
-
-    
-   const SearchRepo = (event) => {
+  const SearchRepo = (event) => {
     setSearchTerm(event.target.value);
-   };
+  };
 
-   useEffect(() => {
-    const filtered = repositories.filter(repo => 
-        repo.name.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+  useEffect(() => {
+    const filtered = repositories.filter((repo) =>
+      repo.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
     setFilteredRepositories(filtered);
-   }, [repositories, searchTerm]);
+  }, [repositories, searchTerm]);
 
-    return (
+  return (
     <>
-    <div>
-    <label
-    className="mx-auto mt-40 relative bg-white min-w-sm max-w-2xl flex flex-col md:flex-row items-center justify-center border py-2 px-2 rounded-2xl gap-2 shadow-2xl focus-within:border-gray-300"
-    for="search-bar">
-    <input id="search-bar" placeholder="your keyword here" type="text" value={searchTerm} onChange={SearchRepo}        className="px-6 py-2 w-full rounded-md flex-1 outline-none bg-white"/>
-    <button
-        className="w-full md:w-auto px-6 py-3 bg-black border-black text-white fill-white active:scale-95 duration-100 border will-change-transform overflow-hidden relative rounded-xl transition-all disabled:opacity-70">
-        
-        <div className="relative">
-
-
-            <div
-                className="flex items-center justify-center h-3 w-3 absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 transition-all">
-                <svg className="opacity-0 animate-spin w-full h-full" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                        stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                    </path>
+      <div>
+        <label
+          className="mx-auto mt-40 relative bg-white min-w-sm max-w-2xl flex flex-col md:flex-row items-center justify-center border py-2 px-2 rounded-2xl gap-2 shadow-2xl focus-within:border-gray-300"
+          for="search-bar"
+        >
+          <input
+            id="search-bar"
+            placeholder="your keyword here"
+            type="text"
+            value={searchTerm}
+            onChange={SearchRepo}
+            className="px-6 py-2 w-full rounded-md flex-1 outline-none bg-white"
+          />
+          <button className="w-full md:w-auto px-6 py-3 bg-black border-black text-white fill-white active:scale-95 duration-100 border will-change-transform overflow-hidden relative rounded-xl transition-all disabled:opacity-70">
+            <div className="relative">
+              <div className="flex items-center justify-center h-3 w-3 absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 transition-all">
+                <svg
+                  className="opacity-0 animate-spin w-full h-full"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  ></circle>
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
                 </svg>
-            </div>
+              </div>
 
-            <div class="flex items-center transition-all opacity-1 valid:"><span
-                    class="text-sm font-semibold whitespace-nowrap truncate mx-auto">
-                    Search
+              <div class="flex items-center transition-all opacity-1 valid:">
+                <span class="text-sm font-semibold whitespace-nowrap truncate mx-auto">
+                  Search
                 </span>
+              </div>
             </div>
+          </button>
+        </label>
+      </div>
 
-        </div>
-        
-    </button>
-</label>
-    </div>
-
-   <div>
-   <Paginator className="flex gap-4 text-zinc-100 m-5" first={first} rows={rows} totalRecords={20} 
-    onPageChange={(e) => {
-    setFirst(e.first);
-    setRows(e.rows);
-   }} />
+      <div>
+        <Paginator
+          className="flex gap-4 text-zinc-100 m-5"
+          first={first}
+          rows={rows}
+          totalRecords={20}
+          onPageChange={(e) => {
+            setFirst(e.first);
+            setRows(e.rows);
+          }}
+        />
         <div>
-           {loading ? (
-                <p className="text-white">loading...</p>
-            ) : (
-                <div className="flex lg:flex-row lg:row-span-3 lg:flex-wrap flex-col gap-4 h-svh w-full m-4">
-                    {filteredRepositories.slice(first, first + rows).map(repo => (
-                       <div className="group flex flex-col justify-start items-start gap-2 w-96 h-56 duration-500 relative rounded-lg p-4 bg-gray-100 hover:-translate-y-2 hover:shadow-xl shadow-gray-300">
-                        
-                         {/* <div  className=" absolute duration-700 shadow-md group-hover:-translate-y-4 group-hover:-translate-x-4 -bottom-10 -right-10 w-1/2 h-1/2 rounded-lg bg-gray-200" key={repo.id}>
+          {loading ? (
+            <p className="text-white">loading...</p>
+          ) : (
+            <div className="flex lg:flex-row lg:row-span-3 lg:flex-wrap flex-col gap-4 h-svh w-full m-4">
+              {filteredRepositories.slice(first, first + rows).map((repo) => (
+                <div className="group flex flex-col justify-start items-start gap-2 w-96 h-56 duration-500 relative rounded-lg p-4 bg-gray-100 hover:-translate-y-2 hover:shadow-xl shadow-gray-300">
+                  {/* <div  className=" absolute duration-700 shadow-md group-hover:-translate-y-4 group-hover:-translate-x-4 -bottom-10 -right-10 w-1/2 h-1/2 rounded-lg bg-gray-200" key={repo.id}>
                             </div> */}
-                          <div>
-                          <h2 class="text-2xl font-bold mb-2 text-gray-800">{repo.name}</h2>
-                            
-                          </div>
-                          <a href={`/repository/${repo.id}`} target="_blank" rel="noopener noreferrer" className="hover:bg-gray-300 bg-gray-200 text-gray-800 mt-6 rounded p-2 px-6">Explore</a>
-                       </div>
-                    
-                    ))}
+                  <div>
+                    <h2 class="text-2xl font-bold mb-2 text-gray-800">
+                      {repo.name}
+                    </h2>
+                  </div>
+                  <Link to="/">
+                    <button className="relative py-2 px-8 text-black text-base font-bold nded-full overflow-hidden bg-white rounded-full transition-all duration-400 ease-in-out shadow-md hover:scale-105 hover:text-white hover:shadow-lg active:scale-90 before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-blue-500 before:to-blue-300 before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-full hover:before:left-0 m-10">
+                      Home page
+                    </button>
+                  </Link>
                 </div>
-            )}
+              ))}
+            </div>
+          )}
         </div>
-
-   </div>
+      </div>
     </>
-    
-    )
-    
-}
-
-
+  );
+};
 
 export default GitHubRepo;
