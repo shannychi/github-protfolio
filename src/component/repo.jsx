@@ -125,7 +125,7 @@ const GitHubRepo = () => {
                     </h2>
                   </div>
                   <a
-                    href={`/repository/${repo.id}`}
+                    href={`/repository/id}`}
                     className="block hover:bg-gray-300 bg-gray-200 text-gray-800 mt-6 rounded p-2 px-6"
                     target="_blank"
                     rel="noopener noreferrer"

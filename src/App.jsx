@@ -13,7 +13,7 @@ const App = () => {
       <Router>
       <Routes>
         <Route path='/' element={<GitHubRepo />}/>
-        <Route path='/repository' element={<RepoData />} />
+        <Route path='/repository/id' element={<RepoData />} />
         <Route path='*' element={<NotFound/>} />
       </Routes>   
     </Router>
