@@ -124,7 +124,7 @@ const GitHubRepo = () => {
                       {repo.name}
                     </h2>
                   </div>
-                  <Link to="/repository">
+                  <Link to={`/repository/${repo.id}`}>
                     <button className="hover:bg-gray-300 bg-gray-200 text-gray-800 mt-6 rounded p-2 px-6">
                       Explore
                     </button>
