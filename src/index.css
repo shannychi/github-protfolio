@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+  background-color: black;
+}
+
+.tr-classNAme {
+  @apply flex flex-col mb-4
+}
