@@ -107,7 +107,7 @@ const GitHubRepo = () => {
                           <h2 class="text-2xl font-bold mb-2 text-gray-800">{repo.name}</h2>
                             
                           </div>
-                          <Link to={`/repository/${repo.id}`} target="_blank" rel="noopener noreferrer" className="hover:bg-gray-300 bg-gray-200 text-gray-800 mt-6 rounded p-2 px-6">Explore</Link>
+                          <Link to={`/repository/:${repo.id}`} target="_blank" rel="noopener noreferrer" className="hover:bg-gray-300 bg-gray-200 text-gray-800 mt-6 rounded p-2 px-6">Explore</Link>
                        </div>
                     
                     ))}
