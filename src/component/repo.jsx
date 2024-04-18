@@ -64,7 +64,7 @@ const GitHubRepo = () => {
             onChange={SearchRepo}
             className="px-6 py-2 w-full rounded-md flex-1 outline-none bg-white"
           />
-          <button className="w-full md:w-auto px-6 py-3 bg-black border-black text-white fill-white active:scale-95 duration-100 border will-change-transform overflow-hidden relative rounded-xl transition-all disabled:opacity-70">
+          <a href="*" className="w-full md:w-auto px-6 py-3 bg-black border-black text-white fill-white active:scale-95 duration-100 border will-change-transform overflow-hidden relative rounded-xl transition-all disabled:opacity-70">
             <div className="relative">
               <div className="flex items-center justify-center h-3 w-3 absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 transition-all">
                 <svg
@@ -95,7 +95,7 @@ const GitHubRepo = () => {
                 </span>
               </div>
             </div>
-          </button>
+          </a>
         </label>
       </div>
 
